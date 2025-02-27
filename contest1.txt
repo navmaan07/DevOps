@@ -1,0 +1,117 @@
+InsertionSort1:
+
+void insertionSort1(int n, int arr_count, int* arr) {
+    int value = arr[n - 1];
+    int i = n - 2;
+
+
+    while (i >= 0 && arr[i] > value) {
+        arr[i + 1] = arr[i];  
+        for (int j = 0; j < n; j++) {
+            printf("%d ", arr[j]);
+        }
+        printf("\n");
+        i--;
+    }
+    arr[i + 1] = value;
+    for (int j = 0; j < n; j++) {
+        printf("%d ", arr[j]);
+    }
+    printf("\n");
+}
+
+InsertionSort2:
+
+void insertionSort2(int n, int* arr) {
+    
+    for (int i = 1; i < n; i++) {
+        int key = arr[i];
+        int j = i - 1;
+
+        while (j >= 0 && arr[j] > key) {
+            arr[j + 1] = arr[j];
+            j = j - 1;
+        }
+        
+        arr[j + 1] = key; 
+        
+        for (int k = 0; k < n; k++) {
+            printf("%d", arr[k]);
+            if (k < n - 1) {
+                printf(" ");
+            }
+        }
+        printf("\n");
+    }
+}
+
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+#include <stdlib.h>
+#include <assert.h>
+
+Correctness and the Loop Invariant:
+
+void insertionSort(int N, int arr[]) {
+    int i, j, value;
+    for(i = 1; i < N; i++) {
+        value = arr[i];
+        j = i - 1;
+        
+        // Correct the loop condition
+        while(j >= 0 && value < arr[j]) {
+            arr[j + 1] = arr[j];
+            j = j - 1;
+        }
+        arr[j + 1] = value;
+    }
+    
+    // Print the sorted array only once after sorting
+    for(j = 0; j < N; j++) {
+        printf("%d", arr[j]);
+        if (j < N - 1) {
+            printf(" "); // Print a space between numbers, but not after the last number
+        }
+    }
+    printf("\n"); // For clean output after the last number
+}
+
+int main(void) {
+    int N;
+    scanf("%d", &N);
+    int arr[N], i;
+    
+    // Read the input array
+    for(i = 0; i < N; i++) {
+        scanf("%d", &arr[i]);
+    }
+    
+    // Call the insertion sort function
+    insertionSort(N, arr);
+    
+    return 0;
+}
+
+Running Time of Algorithms:
+
+int runningTime(int arr_count, int* arr) {
+    int shifts = 0;
+
+
+    for (int i = 1; i < arr_count; i++) {
+        int value = arr[i];
+        int j = i - 1;
+
+        while (j >= 0 && arr[j] > value) {
+            arr[j + 1] = arr[j];  // Shift element
+            j--;
+            shifts++;  // Count the shift
+        }
+        
+        // Place the value at the correct position
+        arr[j + 1] = value;
+    }
+
+    return shifts;
+}
